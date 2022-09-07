@@ -3,7 +3,7 @@ require_once('env.php');
 
 function db_connect()
 {
-    $instanceUnixSocket = 'yashsahu:asia-south1:pasteboard'; // e.g. '/cloudsql/project:region:instance'
+    $instanceUnixSocket = '/cloudsql/yashsahu:asia-south1:pasteboard'; // e.g. '/cloudsql/project:region:instance'
 
     // Connect using UNIX sockets
     $dsn = sprintf(
