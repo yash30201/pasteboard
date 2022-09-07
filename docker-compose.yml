@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  pasteboard-v1:
+    container_name: pasteboard-v1
+    image: php:8.1-apache
+    volumes:
+      - /var/www/html/pasteboard:/var/www/html/
+    ports:
+      - 8000:80
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    depends_on:
+      - database
+  database:
+    container_name: database
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_pass
+      MYSQL_DATABASE: pasteboard
+      MYSQL_USER: paste_user
+      MYSQL_PASSWORD: paste_password
+    ports:
+      - "9906:3306"
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 8080:80
+    restart: always
+    environment:
+      PMA_HOST: database
+    depends_on:
+      - database
