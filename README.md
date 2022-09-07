@@ -20,3 +20,11 @@ define("DB_NAME", "your_database_name");
 
 > For eg, if the project is in root directory of the apache server, then just open `http://localhost/pasteboard`.
 
+---
+
+> To run locally versus on container with project path at /var/www/html/, change the following files
+    *  Private/initialize.php
+    *  Localhost in Private/env.php
+
+    yet to resolve and simplfy this process.
+
