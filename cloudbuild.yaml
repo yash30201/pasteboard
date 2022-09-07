@@ -1,7 +1,7 @@
 #cloudbuild.yaml
 steps:
 - name: 'docker/compose:1.29.2'
-  args: ['up']
+  args: ['up', '-d']
 - name: 'gcr.io/cloud-builders/docker'
   args: ['tag', 'workspace_app:latest', 'gcr.io/yashsahu/pasteboard']
 images: ['gcr.io/yashsahu/pasteboard']
