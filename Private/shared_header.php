@@ -10,7 +10,9 @@
 </head>
 
 <body>
-    <header>Pasteboard</header>
+    <header><h1>Pasteboard</h1></header>
     <nav>
-    <a href="<?php echo url_for('index.php') ?>">Your pastes</a>
+        <a href="<?php echo url_for('index.php') ?>" style="
+    padding: 0 2rem;
+">Your pastes</a>
     </nav>

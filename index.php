@@ -1,6 +1,5 @@
 <?php
 require_once('Private/initialize.php');
-include(PRIVATE_PATH . '/shared_header.php');
 
 
 if(is_post_request()) {
@@ -8,7 +7,7 @@ if(is_post_request()) {
         $title = $_POST['paste_title'];
         $text = $_POST['paste_content'];
         $userId = "DummyUser";
-
+        
         $new_id = create_text_paste($title, $text, $userId);
         redirect_to(url_for('pages/show.php?id=' . h($new_id)));
     } else{
@@ -18,6 +17,7 @@ if(is_post_request()) {
     
 }
 
+include(PRIVATE_PATH . '/shared_header.php');
 ?>
 
 <div id="content">
