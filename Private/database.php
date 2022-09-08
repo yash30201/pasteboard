@@ -1,5 +1,5 @@
 <?php
-error_reporting(E_ALL & ~E_DEPRECATED & ~E_NOTICE);
+error_reporting(E_ALL ^ E_WARNING);
 include_once('env.php');
 
 function db_connect()
