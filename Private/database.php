@@ -11,6 +11,10 @@ function db_connect()
     $db_name = getenv('CLOUD_SQL_DB_NAME');
     $db_user = getenv('CLOUD_SQL_DB_USER');
     $db_pass = getenv('CLOUD_SQL_DB_PASS');
+    echo "Unix socket: " . $instanceUnixSocket . "<br />";
+    echo "User: " . $db_user . "<br />";
+    echo "Pass: " . $db_pass . "<br />";
+    echo "DB Name: " . $db_name . "<br />";
 
     // If running in local
     // $db_name = DB_NAME;
