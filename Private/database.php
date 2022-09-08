@@ -1,5 +1,5 @@
 <?php
-require_once('env.php');
+include_once('env.php');
 
 function db_connect()
 {
