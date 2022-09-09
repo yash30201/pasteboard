@@ -1,16 +1,16 @@
 <?php
 
-$dotenv = Dotenv\Dotenv::createImmutable(PROJECT_PATH);
-$dotenv->load();
+$dotenv = Dotenv\Dotenv::createUnsafeImmutable(PROJECT_PATH);
+$dotenv->safeLoad();
 
 function db_connect()
 {
 
-    $instanceUnixSocket = $_ENV['INSTANCE_UNIX_SOCKET'];
-    $db_name = $_ENV['SQL_DB_NAME'];
-    $db_user = $_ENV['SQL_DB_USER'];
-    $db_pass = $_ENV['SQL_DB_PASS'];
-    $db_server = $_ENV['SQL_DB_SERVER'];
+    $instanceUnixSocket = getenv('INSTANCE_UNIX_SOCKET');
+    $db_name = getenv('SQL_DB_NAME');
+    $db_user = getenv('SQL_DB_USER');
+    $db_pass = getenv('SQL_DB_PASS');
+    $db_server = getenv('SQL_DB_SERVER');
     if($instanceUnixSocket == 'local'){
         // This means we are running locally,
         // thus connecting using driver invocation

@@ -12,10 +12,10 @@
 
 ## Notes
 
-* This env variable `INSTANCE_UNIX_SOCKET` has a default value of `local`(you can name it anything), it has the following logical uses.
-    * Dockerfile has few conditional statement which run only when in cloud run environment (or should I say in any environment where a INSTANCE_UNIX_SOCKET env variable is supplied whose value is different then the one given in the .env file)
+* This env variable `INSTANCE_UNIX_SOCKET` has a default value of `local`(you can name it anything), it has the following logical use.
     * database.php file has condition to check whether the site is running locally(in this case it uses driver invocation method for PDO connection) or in cloud run(in this case it uses unix socket invocation method for PDO connection).
 * When running locally using `docker-compose up`, `sql/sql_queries.sql` automatically runs and creates the required table. 
+* Dockerfile has few conditional statement which run only when in cloud run environment (or should I say in any environment where a IS_THIS_LOCAL env variable is not supplied as YES to the Dockerfile as ARG)
 
 
 
