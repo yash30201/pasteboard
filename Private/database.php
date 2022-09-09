@@ -1,7 +1,7 @@
 <?php
 
 $dotenv = Dotenv\Dotenv::createImmutable(PROJECT_PATH);
-$dotenv->load();
+$dotenv->safeLoad();
 
 function db_connect()
 {
