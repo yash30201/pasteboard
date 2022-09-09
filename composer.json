@@ -3,5 +3,8 @@
         "psr-4": {
             "Pasteboard\\": "pasteboard/"
         }
+    },
+    "require": {
+        "vlucas/phpdotenv": "^5.4"
     }
 }

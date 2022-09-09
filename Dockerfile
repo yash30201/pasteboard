@@ -1,14 +1,29 @@
-# Use the official PHP image.
-# https://hub.docker.com/_/php
+# Using the official PHP image.
 FROM php:8.0-apache
+
+# Setting up and installing required things for project
+
+RUN apt-get update && apt-get upgrade -y
+RUN docker-php-ext-install -j "$(nproc)" pdo pdo_mysql
+RUN apt-get install -y git libzip-dev zip unzip npm
+RUN a2enmod rewrite
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+COPY composer.json composer.lock ./
+RUN composer install
+# RUN composer require kreait/firebase-php
+RUN composer require vlucas/phpdotenv
+
+# If in cloud run, this will be overwritten
+ARG INSTANCE_UNIX_SOCKET=local
 
 # Configure PHP for Cloud Run.
 # Precompile PHP code with opcache.
-RUN apt-get update && apt-get upgrade -y
-RUN docker-php-ext-install -j "$(nproc)" opcache
-RUN docker-php-ext-install -j "$(nproc)" pdo pdo_mysql
 
-RUN set -ex; \
+# ------------------------!!! Only executing this if in cloud run!!!!!
+RUN if [ "$INSTANCE_UNIX_SOCKET" = "local" ] ; then echo 'Doing nothing'; else docker-php-ext-install -j "$(nproc)" opcache; fi
+
+# ------------------------!!! Only executing this if in cloud run!!!!!
+RUN if [ "$INSTANCE_UNIX_SOCKET" = "local" ] ; then echo 'Doing nothing'; else set -ex; \
   { \
     echo "; Cloud Run enforces memory & timeouts"; \
     echo "memory_limit = -1"; \
@@ -21,18 +36,27 @@ RUN set -ex; \
     echo "opcache.validate_timestamps = Off"; \
     echo "; Configure Opcache Memory (Application-specific)"; \
     echo "opcache.memory_consumption = 32"; \
-  } > "$PHP_INI_DIR/conf.d/cloud-run.ini"
+  } > "$PHP_INI_DIR/conf.d/cloud-run.ini" ; fi
 
-# Copy in custom code from the host machine.
+
+
+
+# Copy in custom code from the Github repository root directory
 WORKDIR /var/www/html
 COPY . ./
 
+
+
 # Use the PORT environment variable in Apache configuration files.
 # https://cloud.google.com/run/docs/reference/container-contract#port
-RUN sed -i 's/80/${PORT}/g' /etc/apache2/sites-available/000-default.conf /etc/apache2/ports.conf
+
+# ------------------------!!! Only executing this if in cloud run!!!!!
+RUN if [ "$INSTANCE_UNIX_SOCKET" = "local" ] ; then echo 'Doing nothing'; else sed -i 's/80/${PORT}/g' /etc/apache2/sites-available/000-default.conf /etc/apache2/ports.conf; fi
 
 # Configure PHP for development.
 # Switch to the production php.ini for production operations.
 # RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 # https://github.com/docker-library/docs/blob/master/php/README.md#configuration
-RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
+
+# ------------------------!!! Only executing this if in cloud run!!!!!
+RUN if [ "$INSTANCE_UNIX_SOCKET" = "local" ] ; then echo 'Doing nothing'; else mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"; fi

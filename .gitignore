@@ -1,3 +1,4 @@
 vendor/
 Private/env.php
 docker-compose.yml
+.env

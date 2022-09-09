@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  pasteboard-v1:
+    container_name: pasteboard-v1
+    image: php:8.0-apache
+    volumes:
+      - /var/www/html/pasteboard:/var/www/html/
+    ports:
+      - 8000:80
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    depends_on:
+      - database
+  database:
+    container_name: database
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: your_root_user_password
+      MYSQL_DATABASE: your_database_name
+      MYSQL_USER: your_username
+      MYSQL_PASSWORD: your_password
+    ports:
+      - "9906:3306"
+    volumes:
+    - ./sql:/docker-entrypoint-initdb.d
