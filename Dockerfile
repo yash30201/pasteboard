@@ -5,7 +5,7 @@ FROM php:8.0-apache
 
 RUN apt-get update && apt-get upgrade -y
 RUN docker-php-ext-install -j "$(nproc)" pdo pdo_mysql
-RUN apt-get install -y git libzip-dev zip unzip npm
+RUN apt-get install -y git zip unzip
 RUN a2enmod rewrite
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 COPY composer.json composer.lock ./
@@ -13,17 +13,17 @@ RUN composer install
 # RUN composer require kreait/firebase-php
 RUN composer require vlucas/phpdotenv
 
-# If in cloud run, this will be overwritten
-ARG INSTANCE_UNIX_SOCKET=local
+# If in local, this will be overwritten to YES
+ARG IS_THIS_LOCAL=NO
 
 # Configure PHP for Cloud Run.
 # Precompile PHP code with opcache.
 
 # ------------------------!!! Only executing this if in cloud run!!!!!
-RUN if [ "$INSTANCE_UNIX_SOCKET" = "local" ] ; then echo 'Doing nothing'; else docker-php-ext-install -j "$(nproc)" opcache; fi
+RUN if [ "$IS_THIS_LOCAL" = "YES" ] ; then echo 'Doing nothing'; else docker-php-ext-install -j "$(nproc)" opcache; fi
 
 # ------------------------!!! Only executing this if in cloud run!!!!!
-RUN if [ "$INSTANCE_UNIX_SOCKET" = "local" ] ; then echo 'Doing nothing'; else set -ex; \
+RUN if [ "$IS_THIS_LOCAL" = "YES" ] ; then echo 'Doing nothing'; else set -ex; \
   { \
     echo "; Cloud Run enforces memory & timeouts"; \
     echo "memory_limit = -1"; \
@@ -51,7 +51,7 @@ COPY . ./
 # https://cloud.google.com/run/docs/reference/container-contract#port
 
 # ------------------------!!! Only executing this if in cloud run!!!!!
-RUN if [ "$INSTANCE_UNIX_SOCKET" = "local" ] ; then echo 'Doing nothing'; else sed -i 's/80/${PORT}/g' /etc/apache2/sites-available/000-default.conf /etc/apache2/ports.conf; fi
+RUN if [ "$IS_THIS_LOCAL" = "YES" ] ; then echo 'Doing nothing'; else sed -i 's/80/${PORT}/g' /etc/apache2/sites-available/000-default.conf /etc/apache2/ports.conf; fi
 
 # Configure PHP for development.
 # Switch to the production php.ini for production operations.
@@ -59,4 +59,4 @@ RUN if [ "$INSTANCE_UNIX_SOCKET" = "local" ] ; then echo 'Doing nothing'; else s
 # https://github.com/docker-library/docs/blob/master/php/README.md#configuration
 
 # ------------------------!!! Only executing this if in cloud run!!!!!
-RUN if [ "$INSTANCE_UNIX_SOCKET" = "local" ] ; then echo 'Doing nothing'; else mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"; fi
+RUN if [ "$IS_THIS_LOCAL" = "YES" ] ; then echo 'Doing nothing'; else mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"; fi
