@@ -15,7 +15,7 @@ $pastes = get_all_pastes();
 <div id="content">
     <div class="show">
         <?php foreach ($pastes as $paste) { ?>
-            <div class="card" id="card-button">
+            <div class="card" id=<?php echo 'card-button-' . $paste['id']; ?>>
                 <div class="container">
                     <h4><b><?php echo h($paste['title']); ?></b></h4>
                     <h4>ID: <?php echo h($paste['id']); ?></h4>
@@ -23,7 +23,7 @@ $pastes = get_all_pastes();
                 </div>
             </div>
             <script>
-                var btn = document.getElementById('card-button');
+                var btn = document.getElementById(<?php echo '\'' . 'card-button-' . $paste['id'] .'\''; ?>);
                 btn.addEventListener('click', function() {
                     document.location.href = '<?php echo url_for('pages/show.php?id=' . h($paste['id'])); ?>';
                 });

@@ -1,7 +1,10 @@
 <?php
 
 define("PRIVATE_PATH", dirname(__FILE__));
-// define("PROJECT_PATH", dirname(PRIVATE_PATH));
+define("PROJECT_PATH", dirname(PRIVATE_PATH));
+
+require PROJECT_PATH . '/vendor/autoload.php';
+
 
 // To run locally,do this
 // $public_end = strpos($_SERVER['SCRIPT_NAME'], '/pasteboard') + 11;
