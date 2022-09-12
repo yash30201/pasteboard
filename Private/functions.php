@@ -51,3 +51,15 @@ function is_get_request()
 {
     return $_SERVER['REQUEST_METHOD'] == 'GET';
 }
+
+function test_input($data)
+{
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+
+function echo_error($type, $th) {
+    echo "Error in $type : " . $th->getMessage() . "<br />";
+}

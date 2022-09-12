@@ -1,10 +1,13 @@
 <?php
-
+session_start();
 define("PRIVATE_PATH", dirname(__FILE__));
 define("PROJECT_PATH", dirname(PRIVATE_PATH));
 
 require PROJECT_PATH . '/vendor/autoload.php';
 
+use Kreait\Firebase\Factory;
+
+$factory = (new Factory)->withServiceAccount(PROJECT_PATH . '/pasteboard_firebase_sdk_account_key.json');
 
 // To run locally,do this
 // $public_end = strpos($_SERVER['SCRIPT_NAME'], '/pasteboard') + 11;

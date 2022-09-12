@@ -55,15 +55,38 @@ function get_paste_by_id($id) {
 
 
 /**
- * Get all the pastes
+ * Get a paste by its userId
+ * 
+ * @param String $id
+ * @return array
+ */
+function get_pastes_by_userId($userId) {
+    global $db;
+
+    $sql = "SELECT id, title, link FROM paste ";
+    $sql .= "WHERE user_id='" . $userId . "'";
+    try {
+        $paste_set = $db->query($sql);
+        $paste_set->setFetchMode(PDO::FETCH_ASSOC);
+        return $paste_set;
+    } catch (PDOException $err) {
+        echo_pdo_error($err);
+        db_disconnect();
+        confirm_result_set($sql, $err);
+    }
+}
+
+
+/**
+ * Fetches recent 5 pastes
  * The purpose of this function is to mimic large number of pastes.
  * 
  * @return array
  */
-function get_all_pastes() {
+function get_recent_pastes() {
     global $db;
 
-    $sql = "SELECT id, title, link FROM paste";
+    $sql = "SELECT id, title, link FROM paste ORDER BY id DESC LIMIT 5";
     try {
         $paste_set = $db->query($sql);
         $paste_set->setFetchMode(PDO::FETCH_ASSOC);

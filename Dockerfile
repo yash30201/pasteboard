@@ -1,5 +1,5 @@
 # Using the official PHP image.
-FROM php:8.0-apache
+FROM php:8.1-apache
 
 # Setting up and installing required things for project
 
@@ -11,7 +11,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 COPY composer.json composer.lock ./
 RUN composer install
 # RUN composer require kreait/firebase-php
-RUN composer require vlucas/phpdotenv
+# RUN composer require vlucas/phpdotenv
 
 # If in local, this will be overwritten to YES
 ARG IS_THIS_LOCAL=NO

@@ -10,9 +10,22 @@
 </head>
 
 <body>
-    <header><h1>Pasteboard</h1></header>
+    <header>
+        <h1>Pasteboard</h1>
+    </header>
     <nav>
         <a href="<?php echo url_for('index.php') ?>" style="
     padding: 0 2rem;
+">Create Paste</a>
+        <?php if (!isset($_SESSION['logged']) || $_SESSION['logged'] == 'false') { ?>
+            <a href="<?php echo url_for('/pages/authenticate.php') ?>" style="
+padding: 0 2rem;">Authenticate</a>
+        <?php } ?>
+        <?php if (isset($_SESSION['logged']) && $_SESSION['logged'] == 'true') { ?>
+            <a href="<?php echo url_for('pages/dashboard.php') ?>" style="
+    padding: 0 2rem;
 ">Your pastes</a>
+            <a href="<?php echo url_for('/Private/logout.php') ?>" style="
+    padding: 0 2rem;">Log out</a>
+        <?php } ?>
     </nav>
