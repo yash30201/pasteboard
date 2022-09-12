@@ -143,3 +143,14 @@ dd {
 .container {
   padding: 2px 16px;
 }
+
+.item1 { grid-area: biggerOne; }
+.item2 { grid-area: smallerOne; }
+
+.grid-container {
+  display: grid;
+  grid:
+  'biggerOne biggerOne smallerOne';
+  grid-gap: 10px;
+  padding: 10px;
+}

@@ -55,6 +55,29 @@ function get_paste_by_id($id) {
 
 
 /**
+ * Get a paste by its userId
+ * 
+ * @param String $id
+ * @return array
+ */
+function get_pastes_by_userId($userId) {
+    global $db;
+
+    $sql = "SELECT id, title, link FROM paste ";
+    $sql .= "WHERE user_id='" . $userId . "'";
+    try {
+        $paste_set = $db->query($sql);
+        $paste_set->setFetchMode(PDO::FETCH_ASSOC);
+        return $paste_set;
+    } catch (PDOException $err) {
+        echo_pdo_error($err);
+        db_disconnect();
+        confirm_result_set($sql, $err);
+    }
+}
+
+
+/**
  * Get all the pastes
  * The purpose of this function is to mimic large number of pastes.
  * 

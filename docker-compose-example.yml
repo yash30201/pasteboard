@@ -2,7 +2,7 @@ version: '3.8'
 services:
   pasteboard-v1:
     container_name: pasteboard-v1
-    image: php:8.0-apache
+    image: php:8.1-apache
     volumes:
       - /var/www/html/pasteboard:/var/www/html/
     ports:

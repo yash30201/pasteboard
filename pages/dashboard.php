@@ -1,15 +1,14 @@
 <?php
 require_once('../Private/initialize.php');
 
-// if(!not_found_in_db){
-//     redirect_to('index.php');
-// }
+if(!isset($_SESSION['logged']) || $_SESSION['logged'] == 'false') {
+    redirect_to(url_for('pages/authenticate.php'));
+}
 
-// for now this function will show all the pastes of all users instead of just a single user
 
+$userId = $_SESSION['email'];
+$pastes = get_pastes_by_userId($userId);
 include(PRIVATE_PATH . '/shared_header.php');
-
-$pastes = get_all_pastes();
 ?>
 
 <div id="content">
