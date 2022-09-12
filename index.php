@@ -18,7 +18,7 @@ if (is_post_request()) {
     }
 }
 
-$pastes = get_all_pastes();
+$pastes = get_recent_pastes();
 
 include(PRIVATE_PATH . '/shared_header.php');
 ?>
