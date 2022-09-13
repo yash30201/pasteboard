@@ -2,4 +2,4 @@ vendor/
 Private/env.php
 docker-compose.yml
 .env
-pasteboard_firebase_sdk_account_key.json
+secrets/pasteboard_firebase_sdk_account_key.json
