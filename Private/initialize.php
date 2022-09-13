@@ -6,8 +6,7 @@ define("PROJECT_PATH", dirname(PRIVATE_PATH));
 require PROJECT_PATH . '/vendor/autoload.php';
 
 use Kreait\Firebase\Factory;
-$secret_file_path = PROJECT_PATH . '/pasteboard_firebase_sdk_account_key.json';
-echo "Secret File path is : " . $secret_file_path . "<br />";
+$secret_file_path = PROJECT_PATH . '/secrets/pasteboard_firebase_sdk_account_key.json';
 $factory = (new Factory)->withServiceAccount($secret_file_path);
 
 // To run locally,do this
