@@ -40,7 +40,6 @@ if (is_post_request()) {
             $checkUser = $auth->getUserByEmail($email);
         } catch (\Throwable $th) {
             // echo_error("Auth", $th);
-            $errorMessage .= $th->getMessage() . "<br />";
             $checkUser = null;
         }
         if ($checkUser == null) {
@@ -48,7 +47,7 @@ if (is_post_request()) {
             try {
                 $auth->createUserWithEmailAndPassword(
                     $email,
-                    $pass
+                    $password
                 );
                 $_SESSION['logged'] = 'true';
                 $_SESSION['email'] = $email;
