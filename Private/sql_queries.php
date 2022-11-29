@@ -15,8 +15,8 @@ function create_text_paste($title, $text, $userId) {
     $sql .= "(type, title, content, user_id) ";
     $sql .= "VALUES (";
     $sql .= "'" . $type . "',";
-    $sql .= "'" . u(h($title)) . "',";
-    $sql .= "'" . u(h($text)) . "',";
+    $sql .= "'" . $db->quote($title) . "',";
+    $sql .= "'" . $db->quote($text) . "',";
     $sql .= "'" . $userId . "'";
     $sql .= ")";
 
