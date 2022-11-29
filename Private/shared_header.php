@@ -18,8 +18,8 @@
     padding: 0 2rem;
 ">Create Paste</a>
         <?php if (!isset($_SESSION['logged']) || $_SESSION['logged'] == 'false') { ?>
-            <a href="<?php echo url_for('/pages/authenticate.php') ?>" style="
-padding: 0 2rem;">Authenticate</a>
+            <a href="<?php echo url_for('/pages/login.php') ?>" style="
+padding: 0 2rem;">Login</a>
         <?php } ?>
         <?php if (isset($_SESSION['logged']) && $_SESSION['logged'] == 'true') { ?>
             <a href="<?php echo url_for('pages/dashboard.php') ?>" style="

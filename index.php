@@ -41,23 +41,25 @@ include(PRIVATE_PATH . '/shared_header.php');
                     </dd>
                 </dl>
                 <div id="operations">
-                    <input type="submit" value="Create Paste" />
+                    <input type="submit" class="slide-hover-left-1" value="Create Paste" />
                 </div>
             </form>
         </div>
     </div>
+
     <div class="item2">
-        <div id="content">
-            <h2>Recent Pastes</h2>
-            <br />
-            <div class="show">
-                <?php foreach ($pastes as $paste) { ?>
-                    <div class="card" id=<?php echo 'card-button-' . $paste['id']; ?>>
-                        <div class="container">
-                            <h4><b><?php echo h($paste['title']); ?></b></h4>
-                            <h4>ID: <?php echo h($paste['id']); ?></h4>
-                            <p><?php echo h($paste['link']); ?></p>
-                        </div>
+        <div class="content-dash">
+            <div class="heading">
+                <h1 class="heading__title">Recent Pastes</h1>
+            </div>
+            <div class="cards">
+                <?php $index = 1 ?>
+                <?php foreach ($pastes as $paste) {?>
+                    <div class="<?php echo 'card card-' . $index++ ;?>" id=<?php echo 'card-button-' . $paste['id']; ?>>
+                        <h2 class="card__title"><?php echo h($paste['title']); ?></h2>
+                        <p class="card__apply">
+                            <div class="card__link"><i class="fas fa-arrow-right"></i></div>
+                        </p>
                     </div>
                     <script>
                         var btn = document.getElementById(<?php echo '\'' . 'card-button-' . $paste['id'] . '\''; ?>);
