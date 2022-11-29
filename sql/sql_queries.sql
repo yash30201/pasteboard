@@ -4,7 +4,7 @@ CREATE TABLE paste (
 	modified_at TIMESTAMP DEFAULT now() ON UPDATE now(),
 	type ENUM('text', 'image') NOT NULL,
 	title VARCHAR(200) NOT NULL,
-	link VARCHAR(60) NOT NULL,
+	content VARCHAR(1000) NOT NULL,
 	user_id VARCHAR(130) NOT NULL,
-	PRIMARY KEY (id) 
+	PRIMARY KEY (id)
 );

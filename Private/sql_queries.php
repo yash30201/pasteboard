@@ -2,21 +2,21 @@
 
 /**
  * Creates a new paste(text)
- * 
+ *
  * @param String $title Title of the paste
  * @param String $text The text to be pasted
  * @param String $userId The user who pasted it
  * @return String ID of the last text
- */ 
+ */
 function create_text_paste($title, $text, $userId) {
     global $db;
     $type = "text";
     $sql = "INSERT INTO paste ";
-    $sql .= "(type, title, link, user_id) ";
+    $sql .= "(type, title, content, user_id) ";
     $sql .= "VALUES (";
     $sql .= "'" . $type . "',";
-    $sql .= "'" . $title . "',";
-    $sql .= "'" . $text . "',";
+    $sql .= "'" . u(h($title)) . "',";
+    $sql .= "'" . u(h($text)) . "',";
     $sql .= "'" . $userId . "'";
     $sql .= ")";
 
@@ -34,7 +34,7 @@ function create_text_paste($title, $text, $userId) {
 
 /**
  * Get a paste by its ID
- * 
+ *
  * @param String $id
  * @return array
  */
@@ -56,7 +56,7 @@ function get_paste_by_id($id) {
 
 /**
  * Get a paste by its userId
- * 
+ *
  * @param String $id
  * @return array
  */
@@ -80,7 +80,7 @@ function get_pastes_by_userId($userId) {
 /**
  * Fetches recent 5 pastes
  * The purpose of this function is to mimic large number of pastes.
- * 
+ *
  * @return array
  */
 function get_recent_pastes() {
