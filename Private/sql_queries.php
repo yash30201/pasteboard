@@ -41,7 +41,7 @@ function create_text_paste($title, $text, $userId) {
 function get_paste_by_id($id) {
     global $db;
 
-    $sql = "SELECT title, link FROM paste ";
+    $sql = "SELECT title, content FROM paste ";
     $sql .= "WHERE id='" . $id . "'";
     try {
         $paste_set = $db->query($sql);
@@ -63,7 +63,7 @@ function get_paste_by_id($id) {
 function get_pastes_by_userId($userId) {
     global $db;
 
-    $sql = "SELECT id, title, link FROM paste ";
+    $sql = "SELECT id, title, content FROM paste ";
     $sql .= "WHERE user_id='" . $userId . "'";
     try {
         $paste_set = $db->query($sql);
@@ -86,7 +86,8 @@ function get_pastes_by_userId($userId) {
 function get_recent_pastes() {
     global $db;
 
-    $sql = "SELECT id, title, link FROM paste ORDER BY id DESC LIMIT 5";
+    $sql = "SELECT id, title, content
+     FROM paste ORDER BY id DESC LIMIT 5";
     try {
         $paste_set = $db->query($sql);
         $paste_set->setFetchMode(PDO::FETCH_ASSOC);
