@@ -14,7 +14,7 @@ include(PRIVATE_PATH . '/shared_header.php');
 $id = $_GET['id'];
 $paste = get_paste_by_id($id);
 $title = $paste['title'];
-$text = $paste['link'];
+$text = $paste['content'];
 ?>
 
 <div id="content">

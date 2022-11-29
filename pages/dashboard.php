@@ -18,7 +18,7 @@ include(PRIVATE_PATH . '/shared_header.php');
                 <div class="container">
                     <h4><b><?php echo h($paste['title']); ?></b></h4>
                     <h4>ID: <?php echo h($paste['id']); ?></h4>
-                    <p><?php echo h($paste['link']); ?></p>
+                    <p><?php echo h($paste['content']); ?></p>
                 </div>
             </div>
             <script>
